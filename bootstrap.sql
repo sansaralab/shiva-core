@@ -1,0 +1,1 @@
+-- For initial creating database
