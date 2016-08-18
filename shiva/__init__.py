@@ -15,4 +15,9 @@ def not_found(err):
     return error({'message': 'Not found'})
 
 
+@app.errorhandler(405)
+def not_allowed(err):
+    return error({'message': 'Method not allowed'})
+
+
 import shiva.tracker.views
