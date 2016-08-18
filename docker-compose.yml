@@ -1,0 +1,8 @@
+version: '2'
+services:
+  db:
+    build: .
+    volumes:
+      - /var/lib/postgresql/data-shiva-core:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
