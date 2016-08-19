@@ -1,7 +1,7 @@
 from flask import request
 from shiva import app
 from shiva.tools.request import success, error
-from shiva.tools.db import get_db
+from .services import insert_data, insert_visit, run_triggers
 from .validators import validate_add_data, validate_track_visit
 
 
@@ -20,8 +20,7 @@ def track_visit():
     }
 
     if validate_track_visit(data):
-        db = get_db()
-        cur = db.cursor()
+        insert_visit(data)
         return success()
     else:
         return error()
@@ -46,8 +45,8 @@ def add_data():
     }
 
     if validate_add_data(data):
-        db = get_db()
-        cur = db.cursor()
+        insert_data(data)
+        run_triggers(data)
         return success()
     else:
         return error()

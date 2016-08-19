@@ -1,3 +1,4 @@
+from flask import g
 import psycopg2
 from shiva.common import settings
 

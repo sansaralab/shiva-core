@@ -6,4 +6,4 @@ DB_PORT = '5432'
 
 APP_HOST = 'localhost'
 APP_PORT = '5000'
-APP_DEBUG = False
+APP_DEBUG = True
