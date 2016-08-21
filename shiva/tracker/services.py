@@ -22,5 +22,9 @@ def insert_user_visit(data: UserVisit):
         return True
 
 
+def insert_trigger():
+    pass
+
+
 def run_triggers(data):
     return True
