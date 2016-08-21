@@ -8,7 +8,7 @@ def insert_user_data(data: UserData):
         query = 'INSERT INTO user_data (user_id, action_type, action_name, action_value) VALUES (%s, %s, %s, %s)'
         args = (data.user_id, data.action_type, data.action_name, data.action_value)
         cur.execute(query, args)
-        cur.commit()
+        conn.commit()
         return True
 
 
