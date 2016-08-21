@@ -1,7 +1,8 @@
 from flask import request
 from shiva import app
 from shiva.tools.request import success, error
-from .services import insert_data, insert_visit, run_triggers
+from shiva.domain.types import UserData, UserVisit
+from .services import insert_user_data, insert_user_visit, run_triggers
 from .validators import validate_add_data, validate_track_visit
 
 
@@ -12,15 +13,14 @@ def index():
 
 @app.route('/api/v1/track_visit', methods=['POST'])
 def track_visit():
-    data = {
-        'user_id': request.form.get('user_id', None),
-        'page': request.form.get('page', None),
-        'user_agent': request.form.get('user_agent', None),
-        'ip': request.form.get('ip', None)
-    }
+    visit = UserVisit(
+        user_id=request.form.get('user_id', None),
+        page=request.form.get('page', None),
+        user_agent=request.form.get('user_agent', None),
+        ip=request.form.get('ip', None))
 
-    if validate_track_visit(data):
-        insert_visit(data)
+    if validate_track_visit(visit):
+        insert_user_visit(visit)
         return success()
     else:
         return error()
@@ -37,15 +37,14 @@ def add_data():
 
     :return:
     """
-    data = {
-        'user_id': request.form.get('user_id', None),
-        'action_type': request.form.get('action_type', None),
-        'action_name': request.form.get('action_name', None),
-        'action_value': request.form.get('action_value', None),
-    }
+    data = UserData(
+        user_id=request.form.get('user_id', None),
+        action_type=request.form.get('action_type', None),
+        action_name=request.form.get('action_name', None),
+        action_value=request.form.get('action_value', None))
 
     if validate_add_data(data):
-        insert_data(data)
+        insert_user_data(data)
         run_triggers(data)
         return success()
     else:
